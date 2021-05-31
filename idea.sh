@@ -1,13 +1,27 @@
 #! /bin/bash
 
-echo "what is your idea"
+ls -al --color=auto ~/ideas || exit
 
-read idea
+echo "What would you like to do? (rmidea to remove a idea and mkidea to make one)"
 
-echo "Ok cool, Whats the description"
+read response
 
-read desc
+if [[ $response = rmidea ]]
 
-echo $desc > /home/buket/ideas/$idea
+then
+	echo "What idea would you like to remove"
+	read rmresponse
+	rm -r ~/ideas/$rmresponse && echo "The idea is removed" || echo "There isn't a idea with that name" && exit
 
-echo "nice, your idea is saved in ideas directory (~/ideas)"
+
+elif [[ $response = mkidea ]]
+then
+	echo "What is the name of this idea?"
+	read ideaname
+	echo "Ok cool, what is the description?"
+	read ideadesc
+	echo $ideadesc > ~/ideas/$ideaname && echo "Nice, your idea is saved in your idea directory"
+
+else exit
+
+fi
